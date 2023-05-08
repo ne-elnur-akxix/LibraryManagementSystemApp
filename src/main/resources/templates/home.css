@@ -1,0 +1,25 @@
+*{
+    box-sizing: border-box;
+}
+
+
+.nav-link{
+    color: #fff;
+}
+
+.header-btn{
+    display: flex;
+    color: #fff;
+}
+.nav-link text-white{
+    padding-right: 40px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.nav-link text-white{
+    text-transform: uppercase;
+    color: #fff;
+    padding-right: 40px;
+    font-weight: normal;
+}

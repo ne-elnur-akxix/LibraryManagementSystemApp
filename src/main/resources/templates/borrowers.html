@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Student Management System</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="home.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand text-white" href="#">Book Store</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white" href="available_books">Available Books</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white" href="my_books">My Books</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white"  th:href="@{/borrowers}">Borrower list</a>
+				</li>
+			</ul>
+
+
+			<div class="header-btn" style="margin-right: 10px; margin-top: 11px">
+				<form class="form" action="/search" method="GET">
+					<input type="text" style="width: 200px; height: 30px" name="q" placeholder="Search...">
+					<button class="btn btn-primary btn-sm" style="width: 60px; height: 30px; margin-bottom: 4px" type="submit">Search</button>
+				</form>
+			</div>
+			<div class="header-btn">
+				<br>
+				<a class="btn btn-primary btn-sm mb-3" href="book_register">New Book Register</a>
+				<a th:href = "@{/borrowers/new}" class = "btn btn-primary btn-sm mb-3"> Add Borrower</a>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+	<div class ="container">
+		<div class = "row">
+			<h1> List of Borrowers </h1>
+		</div>
+		
+		<div class = "row">
+			<div class = "col-lg-3">
+				<a th:href = "@{/borrowers/new}" class = "btn btn-primary btn-sm mb-3"> Add Borrower</a>
+			</div>
+		</div>
+		<table class = "table table-striped table-bordered">
+			<thead class = "table-dark">
+				<tr>
+					<th>Id</th>
+					<th> Borrower First Name</th>
+					<th> Borrower Last Name</th>
+					<th> Borrower Email </th>
+					<th> Borrower Phone Number </th>
+					<th> Actions </th>
+
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each = "borrower: ${borrowers}">
+					<td th:text="${borrower.id}"></td>
+					<td th:text = "${borrower.firstName}"></td>
+					<td th:text = "${borrower.lastName}"></td>
+					<td th:text = "${borrower.email}"></td>
+					<td th:text = "${borrower.number}"></td>
+
+					<td>
+						<a th:href = "@{/borrowers/edit/{id}(id=${borrower.id})}"
+						 class = "btn btn-primary">Update</a>
+						
+						<a th:href = "@{/borrowers/{id}(id=${borrower.id})}"
+						 class = "btn btn-danger">Delete</a>
+						 
+					</td>
+				</tr>
+			</tbody>
+		
+		</table>
+		
+	</div>
+</body>
+</html>
