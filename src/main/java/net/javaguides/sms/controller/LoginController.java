@@ -30,6 +30,12 @@ public class LoginController {
         return "register";
     }
 
+    @GetMapping({"/users"})
+    public String usersPage(Model model) {
+        model.addAttribute("users", this.userService.findAllUsers());
+        log.debug("\n\n\n Registering user: " + this.userService.findAllUsers() + "\n\n\n");
+        return "users";
+    }
 
     @PostMapping({"/register"})
     public String postRegister(@ModelAttribute User user) {
@@ -38,10 +44,3 @@ public class LoginController {
         return "login";
     }
 }
-
-//    @GetMapping({"/users"})
-//    public String usersPage(Model model) {
-//        model.addAttribute("users", this.userService.findAllUsers());
-//        log.debug("\n\n\n Registering user: " + this.userService.findAllUsers() + "\n\n\n");
-//        return "users";
-//    }
