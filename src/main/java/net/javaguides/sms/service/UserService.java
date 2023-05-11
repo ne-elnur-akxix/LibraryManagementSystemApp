@@ -1,17 +1,28 @@
 package net.javaguides.sms.service;
 
+import net.javaguides.sms.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import net.javaguides.sms.entity.User;
+@Service
+public class UserService implements UserDetailsService {
 
-import java.util.List;
+    private final UserRepository userRepository;
 
-public interface UserService {
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    User createUser(User newUser);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
+    }
 
-        User createAdmin(User newAdmin);
-
-        List<User> findAllUsers();
-
- }
-
+    public void deleteUserById(Long id) {
+        // Ваша реализация метода удаления пользователя по идентификатору
+    }
+}

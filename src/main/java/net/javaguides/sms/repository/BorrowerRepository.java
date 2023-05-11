@@ -17,6 +17,4 @@ public interface BorrowerRepository extends JpaRepository<Borrower, Long>{
     // Search borrower by first name and/or last name
     @Query("SELECT b FROM Borrower b WHERE (:firstName IS NULL OR b.firstName LIKE %:firstName%) AND (:lastName IS NULL OR b.lastName LIKE %:lastName%)")
     public List<Borrower> findByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
-
-
 }

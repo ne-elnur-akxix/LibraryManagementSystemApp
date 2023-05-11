@@ -2,7 +2,6 @@ package net.javaguides.sms.controller;
 
 
 import net.javaguides.sms.service.MyBookListService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MyBookListController {
 
-    @Autowired
     private MyBookListService service;
 
 
