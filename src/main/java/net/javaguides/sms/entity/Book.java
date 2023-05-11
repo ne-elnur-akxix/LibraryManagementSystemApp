@@ -73,4 +73,8 @@ private int id;
 
     public void setPrice(String price) {
         this.price = price;
-    }}
+    }
+
+    public void setCover(byte[] coverData) {
+    }
+}

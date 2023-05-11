@@ -13,11 +13,11 @@
         <module name="LibraryManagementSystemApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="16" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="LibraryManagementSystemApp" options="-parameters" />
-      <module name="student-management-system" options="-parameters" />
     </option>
   </component>
 </project>

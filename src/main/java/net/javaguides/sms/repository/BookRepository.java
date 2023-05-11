@@ -11,14 +11,12 @@ import java.util.Optional;
 
 
 @Repository
-public interface BookRepository extends JpaRepository<Book,Integer> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
 
-    Book findAllById(Long id);
+    Optional<Book> findById(Long id);
 
-    Book findAllByTitle(String title);
-    @Query(value = "select * from springweb.book s where s.title ilike %:keyword% or s.author ilike %:keyword%", nativeQuery = true)
+    Book findByTitle(String title);
+    @Query("SELECT b FROM Book b WHERE b.title LIKE %:keyword% OR b.author LIKE %:keyword%")
     List<Book> findByKeyword(@Param("keyword") String keyword);
-
-
 }
