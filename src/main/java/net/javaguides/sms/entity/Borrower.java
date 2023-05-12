@@ -10,27 +10,27 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "borrowers")
 public class Borrower {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(name = "email")
 	private String email;
 
 	@Column(name = "number")
 	private long number;
-	
+
 	public Borrower() {
-		
+
 	}
-	
+
 	public Borrower(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
