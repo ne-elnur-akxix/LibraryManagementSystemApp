@@ -8,9 +8,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Book{
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String author;
     private String name;
     private String price;
@@ -73,4 +73,8 @@ private int id;
 
     public void setPrice(String price) {
         this.price = price;
-    }}
+    }
+
+    public void setCover(byte[] coverData) {
+    }
+}

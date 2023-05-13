@@ -9,16 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-
 @Repository
-public interface BookRepository extends JpaRepository<Book,Integer> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
 
-    Book findAllById(Long id);
+    Optional<Book> findById(Long id);
 
-    Book findAllByTitle(String title);
-    @Query(value = "select * from springweb.book s where s.title ilike %:keyword% or s.author ilike %:keyword%", nativeQuery = true)
-    List<Book> findByKeyword(@Param("keyword") String keyword);
-
-
+    Book findByTitle(String title);
 }

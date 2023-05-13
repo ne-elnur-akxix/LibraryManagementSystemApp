@@ -3,13 +3,12 @@ import net.javaguides.sms.entity.Book;
 import net.javaguides.sms.entity.MyBookList;
 import net.javaguides.sms.service.BookService;
 import net.javaguides.sms.service.MyBookListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -19,6 +18,11 @@ public class BookController {
 
     private MyBookListService myBookListService;
 
+    @Autowired
+    public BookController(BookService bookService, MyBookListService myBookListService) {
+        this.service = bookService;
+        this.myBookListService = myBookListService;
+    }
 
     @GetMapping("/")
     public String home(){
@@ -46,49 +50,6 @@ public class BookController {
         return "MyBooks";
     }
 
-    @PostMapping("/save")
-    public String saveBook(
-            @ModelAttribute Book book,
-            @RequestParam("cover") MultipartFile coverFile
-    ) {
-        // Загрузка обложки, если выбран файл
-        if (!coverFile.isEmpty()) {
-            try {
-                byte[] coverData = coverFile.getBytes();
-                book.setCover(coverData);
-            } catch (IOException e) {
-                // Обработка ошибок при загрузке обложки
-            }
-        }
-
-        service.save(book);
-        return "redirect:/available_books";
-    }
-
-    @PostMapping("/upload-cover/{id}")
-    public String uploadBookCover(
-            @PathVariable int id,
-            @RequestParam("cover") MultipartFile coverFile
-    ) {
-        // Получите книгу по идентификатору
-        Book book = service.getBookById(id);
-        if (book == null) {
-            // Обработка ошибки, если книга не найдена
-            return "redirect:/available_books";
-        }
-
-        try {
-            // Загрузка обложки книги
-            byte[] coverData = coverFile.getBytes();
-            book.setCover(coverData);
-            service.save(book);
-        } catch (IOException e) {
-            // Обработка ошибок при загрузке обложки книги
-        }
-
-        return "redirect:/available_books";
-    }
-
     @RequestMapping("/mylist/{id}")
     public String getMyList(@PathVariable("id")int id){
         Book b= service.getBookById(id);
@@ -113,5 +74,9 @@ public class BookController {
     public String deleteBook(@PathVariable("id")int id){
         service.deleteById(id);
         return "redirect:/available_books";
+    }
+
+    public void setMyBookListService(MyBookListService myBookListService) {
+        this.myBookListService = myBookListService;
     }
 }
