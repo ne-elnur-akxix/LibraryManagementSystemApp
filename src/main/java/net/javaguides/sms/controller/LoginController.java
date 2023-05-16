@@ -1,46 +1,93 @@
 package net.javaguides.sms.controller;
 
+import net.javaguides.sms.entity.Role;
 import net.javaguides.sms.entity.User;
+import net.javaguides.sms.repository.UserRepository;
 import net.javaguides.sms.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Collections;
 
 @Controller
 public class LoginController {
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public LoginController(UserService userService) {
+    @Autowired
+    public LoginController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-
-    @GetMapping({"/login"})
+    @GetMapping("/login")
     public String loginPage(Model model) {
         return "login";
     }
 
-    @GetMapping({"/register"})
+    @GetMapping("/register")
     public String registerPage(Model model) {
         return "register";
     }
 
-    @GetMapping({"/users"})
-    public String usersPage(Model model) {
-        model.addAttribute("users", this.userService.findAllUsers());
-        log.debug("\n\n\n Registering user: " + this.userService.findAllUsers() + "\n\n\n");
-        return "users";
+    @GetMapping("/register-admin")
+    public String adminRegisterPage(Model model) {
+        return "register-admin";
     }
 
-    @PostMapping({"/register"})
-    public String postRegister(@ModelAttribute User user) {
-        log.debug("Registering user: " + user.toString());
-        this.userService.createUser(user);
-        return "login";
+    @GetMapping("/users/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return "redirect:/users";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(@ModelAttribute User user, Model model) {
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+
+        if (userFromDb != null) {
+            model.addAttribute("message", "User exists!");
+            return "register";
+        }
+
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
+
+        // Кодирование пароля
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
+
+        return "redirect:/login";
+    }
+
+    @PostMapping("/register-admin")
+    public String postRegisterAdmin(@ModelAttribute User user, Model model) {
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+
+        if (userFromDb != null) {
+            model.addAttribute("message", "Admin exists!");
+            return "register-admin";
+        }
+
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.ADMIN));
+
+        // Кодирование пароля
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
+
+        return "redirect:/login";
     }
 }
