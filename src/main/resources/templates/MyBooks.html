@@ -82,7 +82,7 @@
             <td th:text="${b.author}"></td>
             <td th:text="${b.price}"></td>
             <td th:text="${b.publisher}"></td>
-            <td><a style="color: red" th:href="@{/deleteMyList/{id}(id=${b.id})}" class="btn btn-danger">Delete</a></td>
+            <td><a th:href="@{/deleteMyList/{id}(id=${b.id})}" class="btn btn-danger">Delete</a></td>
 
         </tr>
 

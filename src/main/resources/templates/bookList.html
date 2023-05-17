@@ -69,6 +69,25 @@
             <th scope="col">Price</th>
             <th scope="col">Publisher</th>
             <th scope="col">Action</th>
+            <form class="col-md-4 offset-md-4" th:action="@{/available_books}">
+                <div class="mb-3">
+                    <select name="keyword">
+                        <tr2 th:each="l : ${listS}">
+                            <option th:value="${l}" th:text="${l}"></option>
+                        </tr2>
+
+                    </select>
+                </div>
+                <button type="submit">Sort</button>
+            </form>
+                <div class="header-btn" style="margin-right: 10px; margin-top: 11px">
+                    <form th:action="@{/search}" method="post">
+                        <input type="text" style="width: 200px; height: 30px"  name="keyword" th:value="${keyword}" placeholder="Search...">
+                        <button class="btn btn-primary btn-sm" style="width: 60px; height: 30px; margin-bottom: 4px" type="submit">Search</button>
+                    </form>
+                </div>
+
+
 
 
         </tr>

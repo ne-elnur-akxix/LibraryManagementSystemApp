@@ -12,10 +12,10 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    @Query(value = "select * from book s where s.name like %:keyword% or s.author like %:keyword% or s.publisher like %:keyword%", nativeQuery = true)
+    @Query(value = "select * from book s where s.name like %:keyword% or s.author like %:keyword% or s.publisher like %:keyword% or s.id like %:keyword%", nativeQuery = true)
     List<Book> findByKeyword(@Param("keyword") String keyword);
 
-//    List<Book> findByOrderByIdAsc();
+    List<Book> findByOrderByIdAsc();
     List<Book> findByOrderByAuthorAsc();
     List<Book> findByOrderByNameAsc();
     List<Book> findByOrderByPriceAsc();

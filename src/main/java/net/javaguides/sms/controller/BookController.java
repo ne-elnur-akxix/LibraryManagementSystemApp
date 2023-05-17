@@ -50,6 +50,9 @@ public class BookController {
 
         if(keyword!=null) {
             switch (keyword){
+                case "By Id Asc":
+                    model.addAttribute("list", bookService.bRepo.findByOrderByIdAsc());
+                    break;
                 case "By Author Asc":
                     model.addAttribute("list", bookService.bRepo.findByOrderByAuthorAsc());
                     break;
@@ -106,6 +109,18 @@ public class BookController {
         books.setCoverName(coverUUID);
         bookService.save(books);
         return "redirect:/available_books";
+    }
+
+    @RequestMapping(path = {"/search"})
+    public String home(Book shop, Model model, String keyword) {
+        System.out.println(keyword + "\n\n\n");
+        if(keyword!=null) {
+            List<Book> list = bookService.getByKeyword(keyword);
+            model.addAttribute("book", list);
+        }else {
+            List<Book> list = bookService.getAllBooks();
+            model.addAttribute("book", list);}
+        return "bookList";
     }
 
     @GetMapping("/my_books")
