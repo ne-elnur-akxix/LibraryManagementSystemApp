@@ -11,41 +11,38 @@ public class MyBookList {
 
     @Id
     private int id;
-    private long isbn;
+    private int isbn;
     private String name;
     private String author;
     private String price;
-    private String title;
     private String publisher;
+    private String coverName;
 
-    public MyBookList(int id, String name, String author, String price, String title, String publisher) {
+    public String getCoverName() {
+        return coverName;
+    }
+    public void setCoverName(String coverName) {
+        this.coverName = coverName;
+    }
+
+    public MyBookList(int id, int isbn, String name, String author, String price, String publisher, String coverName) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.price = price;
-        this.title = title;
         this.isbn = isbn;
-        this.publisher= publisher;
+        this.publisher = publisher;
+        this.coverName = coverName;
     }
 
     public MyBookList() {
         super();
     }
 
-    public long getIsbn() {
-        return isbn;
-    }
+    public int getIsbn() { return isbn; }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(int isbn) {
         this.isbn = isbn;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getPublisher() {

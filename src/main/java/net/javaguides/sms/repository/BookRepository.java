@@ -12,8 +12,14 @@ import java.util.Optional;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
+    @Query(value = "select * from book s where s.name like %:keyword% or s.author like %:keyword% or s.publisher like %:keyword%", nativeQuery = true)
+    List<Book> findByKeyword(@Param("keyword") String keyword);
 
-    Optional<Book> findById(Long id);
-
-    Book findByTitle(String title);
+//    List<Book> findByOrderByIdAsc();
+    List<Book> findByOrderByAuthorAsc();
+    List<Book> findByOrderByNameAsc();
+    List<Book> findByOrderByPriceAsc();
+//    List<Book> findByOrderByISBNAsc();
+    List<Book> findByOrderByPublisherAsc();
+    Optional<Book> findById(int id);
 }

@@ -63,12 +63,13 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">ISBN</th>
+            <th scope="col">Cover</th>
             <th scope="col">Name</th>
             <th scope="col">Author</th>
             <th scope="col">Price</th>
             <th scope="col">Publisher</th>
-            <th scope="col">Title</th>
             <th scope="col">Action</th>
+
 
         </tr>
         </thead>
@@ -76,12 +77,12 @@
         <tr th:each="b :${book}">
             <td th:text="${b.id}"></td>
             <td th:text="${b.isbn}"></td>
+            <td><img src="" height="70px" width="70px"  th:src="@{${'/coverImages/' + b.coverName}}"></td>
             <td th:text="${b.name}"></td>
             <td th:text="${b.author}"></td>
             <td th:text="${b.price}"></td>
             <td th:text="${b.publisher}"></td>
-            <td th:text="${b.title}"></td>
-            <td><a style="color: red" th:href="@{/deleteMyList/{id}(id=${b.id})}"><i class="fa-sharp fa-solid fa-trash"></i> </a></td>
+            <td><a style="color: red" th:href="@{/deleteMyList/{id}(id=${b.id})}" class="btn btn-danger">Delete</a></td>
 
         </tr>
 

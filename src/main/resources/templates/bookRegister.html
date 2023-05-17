@@ -58,30 +58,36 @@
 
 <div classname="container">
     <h4 class="text-center">New Book Register</h4>
-    <form class="col-md-4 offset-md-4" th:action="@{/save}" method="post">
+    <form class="col-md-4 offset-md-4" th:action="@{/book_register}" th:object="${booksDTO}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Name </label>
-            <input type="text" class="form-control" name="name" id="name">
+            <input type="text" class="form-control" name="name" id="name" required th:field="*{name}">
+        </div>
+        <div class="mb-3">
+            <p>Book's Cover</p>
+            <div class="custom-file">
+                <input type="file"  class="custom-file-input" name="coverImage" accept="image/jpeg, image/png"  id="coverImage"/>
+            </div>
+            <div class="form-group">
+                <img src="#" id="cvrPreview" height="100px" width="100px" th:src="@{${'/coverImages/' + booksDTO.coverName}}">
+            </div>
+            <input type="hidden" name="cvrName" th:value="${booksDTO.coverName}">
         </div>
         <div class="mb-3">
             <label for="isbn" class="form-label">ISBN </label>
-            <input type="text" class="form-control" name="isbn" id="isbn">
+            <input type="text" class="form-control" name="isbn" id="isbn" required th:field="*{isbn}">
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">Author </label>
-            <input type="text" class="form-control" name="author" id="author">
+            <input type="text" class="form-control" name="author" id="author" required th:field="*{author}">
         </div>
         <div class="mb-3">
             <label for="publisher" class="form-label">Publisher </label>
-            <input type="text" class="form-control" name="publisher" id="publisher">
-        </div>
-        <div class="mb-3">
-            <label for="title" class="form-label">Title </label>
-            <input type="text" class="form-control" name="title" id="title">
+            <input type="text" class="form-control" name="publisher" id="publisher" required th:field="*{publisher}">
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price </label>
-            <input type="text" class="form-control" name="price" id="price">
+            <input type="text" class="form-control" name="price" id="price" required th:field="*{price}">
         </div>
 
         <center><button type="submit" class="btn btn-primary">Submit</button></center>

@@ -1,6 +1,7 @@
 package net.javaguides.sms.service;
 
 
+import net.javaguides.sms.entity.Book;
 import net.javaguides.sms.entity.MyBookList;
 import net.javaguides.sms.repository.MyBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,16 @@ import java.util.List;
 @Service
 public class MyBookListService {
     @Autowired
-    private MyBookRepository mybook;
+    private MyBookRepository myBookRepository;
 
     public void saveMyBook(MyBookList book){
-        mybook.save(book);
+        myBookRepository.save(book);
     }
     public List<MyBookList> getAllMyBooks(){
-        return mybook.findAll();
+        return myBookRepository.findAll();
     }
     public void deleteById(int id) {
-        mybook.deleteById(id);
+        myBookRepository.deleteById(id);
     }
+    public MyBookList getById(int id) { return myBookRepository.getById(id); }
 }

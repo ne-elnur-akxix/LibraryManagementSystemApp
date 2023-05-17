@@ -63,30 +63,27 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">ISBN</th>
+            <th scope="col">Cover</th>
             <th scope="col">Name</th>
             <th scope="col">Author</th>
             <th scope="col">Price</th>
             <th scope="col">Publisher</th>
-            <th scope="col">Title</th>
             <th scope="col">Action</th>
 
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="b :${book}">
+        <tr th:each="b :${list}">
             <td th:text="${b.id}"></td>
             <td th:text="${b.isbn}"></td>
+            <td><img src="" height="70px" width="70px"  th:src="@{${'/coverImages/' + b.coverName}}"></td>
             <td th:text="${b.name}"></td>
             <td th:text="${b.author}"></td>
             <td th:text="${b.price}"></td>
             <td th:text="${b.publisher}"></td>
-            <td th:text="${b.title}"></td>
-            <td><a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b. id})}">Add To My Book</a>
-                <a style="color: blue" th:href="@{/editBook/{id}(id=${b. id})}"><i class="fa-solid fa-pen-to-square ms-4"></i></a>
-                <a style="color:red" th:href="@{deleteBook/{id}(id=${b.id})}"><i class="fa-sharp fa-solid fa-trash ms-4"></i></a>
-
-            </td>
+            <td><a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b. id})}">Add To My Book</a></td>
+            <td>  <a th:href = "@{/deleteBook/{id}(id=${b.id})}" class = "btn btn-danger">Delete</a></td>
 
         </tr>
 
